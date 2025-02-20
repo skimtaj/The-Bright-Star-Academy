@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Addition Form</title>
+
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120vh;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Form Title */
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 24px;
+        }
+
+        /* Form Group (Each Input Field) */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        /* Labels */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        /* Input Fields and Select Dropdowns */
+        select,
+        input[type="number"],
+        input[type="date"],
+        input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        /* Submit Button */
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        .go-back-btn {
+            background-color: #6c757d;
+            margin-top: 10px;
+        }
+
+        .go-back-btn:hover {
+            background-color: #5a6268;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            select,
+            input[type="number"],
+            input[type="date"],
+            input[type="email"] {
+                font-size: 14px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Salary Addition Form</h2>
+        <form method="post">
+            <!-- Department Field -->
+            <div class="form-group">
+                <label for="department">Department</label>
+                <select id="department" name="department" required>
+                    <option value="">Select Department</option>
+                    <% department.forEach((depart)=> { %>
+                        <option value="<%= depart.departmentName %>">
+                            <%= depart.departmentName %>
+                        </option>
+                        <% }) %>
+                </select>
+            </div>
+
+            <!-- Employee Field -->
+            <div class="form-group">
+                <label for="employee">Employee Name</label>
+                <select id="employee" name="employee" required>
+                    <option value="">Select Employee</option>
+                </select>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter Email" required>
+            </div>
+
+            <!-- Salary Field -->
+            <div class="form-group">
+                <label for="salary">Salary</label>
+                <input type="number" id="salary" name="salary" placeholder="Enter Salary" required>
+            </div>
+
+            <!-- Date Field -->
+            <div class="form-group">
+                <label for="date">Date</label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Add Salary</button>
+            <button type="button" class="go-back-btn" onclick="history.back()">Go Back</button>
+        </form>
+    </div>
+
+    <script>
+        // Pass employees data from EJS to JavaScript
+        const employees = <%- JSON.stringify(employees) %>;
+        console.log(employees); // Verify data in the browser console
+    </script>
+
+    <script>
+        const department = document.getElementById('department');
+        const employeeDropdown = document.getElementById('employee');
+        const dateField = document.getElementById('date');
+        const Email = document.getElementById('email');
+
+        // Populate employee dropdown based on selected department
+        department.addEventListener('change', (event) => {
+            let selectedDept = event.target.value;
+            employeeDropdown.innerHTML = '<option value="">Select Employee</option>';
+
+            if (selectedDept) {
+                employees.forEach((employee) => {
+                    if (employee.Department === selectedDept) {
+                        let option = document.createElement("option");
+                        option.value = employee.Name;
+                        option.textContent = employee.Name;
+                        employeeDropdown.appendChild(option);
+                    }
+                });
+            }
+        });
+
+        employeeDropdown.addEventListener('change', (event) => {
+
+            let selectedEmployee = event.target.value;
+
+            if (selectedEmployee) {
+
+                const matchEmployee = employees.find(emp => emp.Name === selectedEmployee)
+
+                if (matchEmployee) {
+
+                    Email.value = matchEmployee.Email
+                }
+
+                else {
+
+                    Email.value = ''
+                }
+
+            }
+
+            else {
+
+                Email.value = ''
+            }
+
+        })
+
+
+        const today = new Date().toISOString().split('T')[0];
+        window.onload = () => {
+            dateField.value = today;
+        };
+    </script>
+</body>
+
+</html>

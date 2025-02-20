@@ -179,38 +179,33 @@
 
                         <form method="post" enctype="multipart/form-data">
                             <div class="form-group">
-                                <input type="text" id="name" name="Name" placeholder=" " required>
+                                <input type="text" id="name" name="Name" placeholder=" " value="<%=adminSourse.Name%>">
                                 <label for="name">Full Name</label>
                             </div>
 
                             <div class="form-group">
-                                <input type="number" id="mobile" name="Mobile" placeholder=" " required>
+                                <input type="number" id="mobile" name="Mobile" placeholder=" "
+                                    value="<%=adminSourse.Mobile%>">
                                 <label for="mobile">Mobile</label>
                             </div>
 
                             <div class="form-group">
-                                <input type="email" id="email" name="Email" placeholder=" " required>
+                                <input type="email" id="email" name="Email" placeholder=" "
+                                    value="<%=adminSourse.Email%>">
                                 <label for="email">Email Address</label>
                             </div>
 
-                            <div class="form-group position-relative">
-                                <input type="password" id="password" name="Password" placeholder=" " required>
-                                <label for="password">Password</label>
-                                <i class="fa fa-eye" id="togglePassword"></i>
-                            </div>
+
 
                             <div class="form-group">
-                                <input type="file" id="profileImage" name="Profile_Image" accept="image/*" required>
+                                <input type="file" id="profileImage" name="Profile_Image" accept="image/*">
                                 <label for="profileImage">Profile Image</label>
                             </div>
 
 
+                            <button type="submit" class="btn btn-primary">Update</button>
 
-                            <button type="submit" class="btn btn-primary">Signup</button>
 
-                            <div class="footer-text">
-                                Already have an account? <a href="/admin-login">Sign in</a>
-                            </div>
 
                             <center> <a href="/admin-login" class="btn btn-secondary mb-3 btn-sm">
                                     <i class="fas fa-arrow-left"></i> Back
@@ -220,14 +215,7 @@
     </div>
 
     <script>
-        const togglePassword = document.querySelector('#togglePassword');
-        const passwordInput = document.querySelector('#password');
 
-        togglePassword.addEventListener('click', function () {
-            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', type);
-            this.classList.toggle('fa-eye-slash');
-        });
 
         setTimeout(() => {
             const msg = document.getElementById('msg');

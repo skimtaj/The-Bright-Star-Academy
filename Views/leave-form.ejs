@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Addition Form</title>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Form Container */
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            margin: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Form Title */
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+            font-size: 26px;
+            font-weight: 600;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #28a745, #218838);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Form Group (Each Input Field) */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        /* Labels */
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        /* Input Fields and Select Dropdowns */
+        select,
+        input[type="number"],
+        input[type="date"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 12px 12px 12px 40px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        textarea {
+            resize: vertical;
+            /* Allow vertical resizing */
+            min-height: 100px;
+            /* Set a minimum height */
+            padding-left: 12px;
+            /* Adjust padding for textarea */
+        }
+
+        select:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 8px rgba(40, 167, 69, 0.3);
+            outline: none;
+        }
+
+        /* Icons for Input Fields */
+        .form-group i {
+            position: absolute;
+            left: 12px;
+            top: 40px;
+            color: #888;
+            font-size: 16px;
+        }
+
+        /* Icon for Textarea */
+        .form-group.textarea-group i {
+            top: 20px;
+            /* Adjust icon position for textarea */
+        }
+
+        /* Submit Button */
+        button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(90deg, #28a745, #218838);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #218838, #28a745);
+            transform: translateY(-2px);
+        }
+
+        /* Go Back Button */
+        .go-back-btn {
+            background: linear-gradient(90deg, #6c757d, #5a6268);
+            margin-top: 15px;
+        }
+
+        .go-back-btn:hover {
+            background: linear-gradient(90deg, #5a6268, #6c757d);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .form-container {
+                padding: 20px;
+            }
+
+            h2 {
+                font-size: 22px;
+            }
+
+            select,
+            input[type="number"],
+            input[type="date"],
+            input[type="email"],
+            textarea {
+                font-size: 14px;
+                padding-left: 36px;
+            }
+
+            .form-group i {
+                font-size: 14px;
+                top: 38px;
+            }
+
+            .form-group.textarea-group i {
+                top: 18px;
+                /* Adjust icon position for textarea on smaller screens */
+            }
+
+            button {
+                font-size: 14px;
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <h2>Leave Making Form</h2>
+        <form method="post">
+            <!-- Department Field -->
+            <div class="form-group">
+                <label for="department">Department</label>
+                <i class="fas fa-building"></i>
+                <select id="department" name="department" required>
+                    <option value="">Select Department</option>
+                    <% department.forEach((depart)=>{ %>
+
+                        <option value="<%= depart.departmentName %>">
+                            <%=depart.departmentName%>
+                        </option>
+
+                        <% })%>
+
+                </select>
+            </div>
+
+            <!-- Employee Field -->
+            <div class="form-group">
+                <label for="employee">Employee Name</label>
+                <i class="fas fa-user"></i>
+                <select id="employee" name="employee" required>
+                    <option value="">Select Employee</option>
+                    <!-- Add options dynamically here -->
+                </select>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+                <label for="email">Email</label>
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="email" name="email" placeholder="Enter Email" required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="employee"> Leave For</label>
+                <i class="fa-solid fa-check"></i>
+                <select id="leaveSelecetion" name="leaveSelecetion" required>
+                    <option value="">Select day</option>
+                    <option value='One Day'> One Day </option>
+                    <option value='Several Day'> Several Day </option>
+                </select>
+            </div>
+
+
+            <div class="form-group" style='display:none' id='oneDay'>
+                <label for="date">Select Date</label>
+                <i class="fas fa-calendar-alt"></i>
+                <input type="date" id="date" name="date" >
+            </div>
+
+            <div style="display: none;" id='severalLeave'>
+                <div class="form-group">
+                    <label for="from-date">From</label>
+                    <i class="fas fa-calendar-alt"></i>
+                    <input type="date" id="from-date" name="fromDate" >
+                </div>
+
+                <div class="form-group">
+                    <label for="to-date">To</label>
+                    <i class="fas fa-calendar-alt"></i>
+                    <input type="date" id="to-date" name="toDate" >
+                </div>
+            </div>
+
+
+            <div class="form-group textarea-group">
+                <label for="reason">Reason</label>
+
+                <textarea id="reason" name="reason" placeholder="Enter the reason for salary addition"
+                    required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit"> submit</button>
+            <button type="button" class="go-back-btn" onclick="history.back()">Go Back</button>
+        </form>
+    </div>
+</body>
+
+<script>
+
+    const employees = <%- JSON.stringify(employees) %> ;
+
+</script>
+
+<script>
+
+    const leaveSelecetion = document.getElementById('leaveSelecetion');
+    const oneDay = document.getElementById('oneDay');
+    const severalLeave = document.getElementById('severalLeave');
+    const department = document.getElementById('department');
+    const employeeDropdown = document.getElementById('employee');
+    const email = document.getElementById('email');
+
+    leaveSelecetion.addEventListener('change', () => {
+
+        if (leaveSelecetion.value === 'One Day') {
+            oneDay.style.display = 'block'
+            severalLeave.style.display = 'none'
+
+        }
+
+        else if (leaveSelecetion.value === 'Several Day') {
+
+            oneDay.style.display = 'none'
+            severalLeave.style.display = 'block'
+
+        }
+
+    })
+
+    department.addEventListener('change', (event) => {
+        let selectedDepartment = event.target.value;
+        employeeDropdown.innerHTML = '<option value="">  Select Employee  </option>';
+
+        if (selectedDepartment) {
+            employees.forEach((emp) => {
+
+                if (emp.Department === selectedDepartment) {
+                    let Option = document.createElement('Option');
+                    Option.value = emp.Name;
+                    Option.textContent = emp.Name;
+                    employeeDropdown.appendChild(Option);
+                }
+            });
+        }
+
+
+
+
+    })
+
+    employeeDropdown.addEventListener('change', (event) => {
+
+        let selectedEmployee = event.target.value;
+
+        if (selectedEmployee) {
+
+            const matchName = employees.find(emp => emp.Name === selectedEmployee);
+
+            if (matchName) {
+
+                email.value = matchName.Email
+            }
+
+        }
+
+    })
+
+
+</script>
+
+</html>

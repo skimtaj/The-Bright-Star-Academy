@@ -9,31 +9,28 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            background: linear-gradient(135deg, #4b6cb7, #182848);
             color: #fff;
         }
 
         .container {
-            width: 100%;
-            max-width: 400px;
             background: #fff;
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
+            padding: 30px 20px;
+            width: 100%;
+            max-width: 400px;
             color: #333;
             text-align: center;
-            padding-top: 30px;
         }
 
         .header-icon {
-            background: linear-gradient(135deg, #ff758c, #ff7eb3);
+            background: linear-gradient(135deg, #36d1dc, #5b86e5);
             color: #fff;
             font-size: 50px;
             width: 100px;
@@ -41,113 +38,94 @@
             line-height: 100px;
             border-radius: 50%;
             margin: 0 auto 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .container h2 {
-            font-size: 26px;
+            font-size: 28px;
             margin: 10px 0;
             font-weight: 700;
         }
 
         .container p {
-            margin: 5px 0 20px;
-            color: #555;
+            color: #666;
         }
 
         form {
-            padding: 20px;
+            text-align: left;
+            margin-top: 20px;
         }
 
         .form-group {
-            margin-bottom: 20px;
             position: relative;
+            margin-bottom: 30px;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px 15px;
+            padding: 8px 15px;
             font-size: 16px;
-            border: 1px solid #ddd;
-            border-radius: 25px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
             outline: none;
-            transition: all 0.3s ease;
             background: #f9f9f9;
-            color: #333;
+            transition: all 0.3s ease;
         }
 
         .form-group input:focus {
-            background: #fff;
-            border-color: #2575fc;
-            box-shadow: 0 4px 8px rgba(37, 117, 252, 0.3);
+            border-color: #5b86e5;
+            box-shadow: 0 4px 8px rgba(91, 134, 229, 0.3);
         }
 
         .form-group label {
             position: absolute;
-            left: 20px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 14px;
             color: #aaa;
             pointer-events: none;
             transition: all 0.3s ease;
+            background: #fff;
+            padding: 0 5px;
         }
 
         .form-group input:focus+label,
         .form-group input:not(:placeholder-shown)+label {
             top: -10px;
             font-size: 12px;
-            color: #2575fc;
-            background: #fff;
-            padding: 0 5px;
+            color: #5b86e5;
         }
 
         .btn {
-            display: block;
             width: 100%;
             padding: 12px 0;
             font-size: 16px;
             color: #fff;
             border: none;
             border-radius: 25px;
-            background: linear-gradient(135deg, #6a11cb, #2575fc);
-            box-shadow: 0 4px 15px rgba(37, 117, 252, 0.3);
+            background: linear-gradient(135deg, #36d1dc, #5b86e5);
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .btn:hover {
-            background: linear-gradient(135deg, #2575fc, #6a11cb);
-            box-shadow: 0 6px 20px rgba(37, 117, 252, 0.5);
+            box-shadow: 0 6px 20px rgba(91, 134, 229, 0.5);
         }
 
         .footer-text {
-            margin: 10px 0 20px;
+            margin-top: 20px;
             color: #777;
         }
 
         .footer-text a {
-            color: #2575fc;
+            color: #5b86e5;
             text-decoration: none;
         }
 
         .footer-text a:hover {
             text-decoration: underline;
-        }
-
-        @media (max-width: 576px) {
-            .header-icon {
-                font-size: 40px;
-                width: 70px;
-                height: 70px;
-                line-height: 70px;
-            }
-
-            .container h2 {
-                font-size: 22px;
-            }
         }
 
         .password-toggle {
@@ -160,7 +138,29 @@
         }
 
         .password-toggle:hover {
-            color: #2575fc;
+            color: #5b86e5;
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 15px;
+                max-width: 90%;
+            }
+
+            .header-icon {
+                font-size: 35px;
+                width: 70px;
+                height: 70px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            .btn {
+                padding: 8px 0;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -171,8 +171,8 @@
             <i class="fas fa-lock"></i>
         </div>
         <h2>Welcome Back</h2>
-
         <p>Enter your email and password to login.</p>
+
 
         <% if (messages.success) { %>
             <div class="alert alert-success" id="msg">
@@ -185,7 +185,6 @@
                         <%= messages.error %>
                     </div>
                     <% } %>
-
 
                         <form method="post">
                             <div class="form-group">
@@ -201,7 +200,7 @@
                         </form>
 
                         <div class="footer-text">
-                            <p><a href="/admin/forget-password">Forgot Password?</a></p>
+                            <p><a href="#">Forgot Password?</a></p>
                             <p>Don't have an account? <a href="/admin-signup">Signup Here</a></p>
                         </div>
     </div>
@@ -220,6 +219,7 @@
         setTimeout(() => {
 
             document.getElementById('msg').style.display = 'none'
+
         }, 3000)
 
 

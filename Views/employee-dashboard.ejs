@@ -64,7 +64,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            background: #313342;
+            background: #235CAA;
             height: 100%;
             width: 280px;
             z-index: 2000;
@@ -636,7 +636,9 @@
         <a href="#" class="logo">
             <i class="fab fa-slack"></i>
             <span class="text">
-                <%=adminSourse.Name%>
+                <h3>
+                    <%=employeeSourse.Name%>
+                </h3>
             </span>
         </a>
 
@@ -649,49 +651,33 @@
             </li>
 
             <li>
-                <a href="#employee" class="nav-link">
-                    <i class="fa-solid fa-circle-user"></i>
-                    <span class="text"> Employee</span>
-                </a>
-            </li>
-
-
-            <li>
-                <a href="/admin-dashboard/add-task" class="nav-link">
+                <a href="" class="nav-link">
                     <i class="fa-solid fa-list-check"></i>
-                    <span class="text">Add Task</span>
+
+                    <span class="text">Task Details</span>
                 </a>
             </li>
-
 
             <li>
                 <a href="#department" class="nav-link">
                     <i class="fa-solid fa-building"></i>
-                    <span class="text">Department</span>
+                    <span class="text">Salary</span>
                 </a>
             </li>
 
 
             <li>
-                <a href="/admin-dashboard/add-salary" class="nav-link">
-                    <i class="fa-solid fa-people-group"></i>
-                    <span class="text">Add Salary</span>
+                <a href="/employee-dashboard/leave-request" class="nav-link">
+                    <i class="fa-solid fa-list-check"></i>
+                    <span class="text"> Leave Request</span>
                 </a>
             </li>
 
-            <li>
-                <a href="#leaves" class="nav-link">
-                    <i class="fa-solid fa-mug-hot"></i>
-                    <span class="text">Leave </span>
-                </a>
-            </li>
 
-            <li>
-                <a href="/admin-profile" class="nav-link">
-                    <i class="fa-solid fa-gear"></i>
-                    <span class="text">Setting </span>
-                </a>
-            </li>
+
+
+
+
 
 
         </ul>
@@ -699,7 +685,7 @@
         <ul class="side-menu">
 
             <li>
-                <a href="/logout" class="logout">
+                <a href="/employee-logout" class="logout">
                     <i class="fas fa-right-from-bracket"></i>
                     <span class="text">Logout</span>
                 </a>
@@ -729,15 +715,14 @@
             </a>
 
             <a href="#" class="profile">
-                <img src="/uploads/<%=adminSourse.Profile_Image%>" alt="Profile Image" />
+                <img src="" alt="Profile Image" />
             </a>
         </nav>
 
         <main>
             <div class="head-title">
                 <div class="left">
-                    <h3>Admin Dashboard</h3>
-
+                    <h3>Employee Dashboard</h3>
 
                     <% if (messages.success) { %>
                         <div class="alert alert-success" id="msg">
@@ -750,6 +735,7 @@
                                     <%= messages.error %>
                                 </div>
                                 <% } %>
+
 
                                     <ul class="breadcrumb">
 
@@ -766,18 +752,18 @@
                     <i class="fas fa-calendar-check"></i>
                     <span class="text">
                         <h3>
-                            <%=totalDepartment%>
+                            <%=totalTask%>
                         </h3>
-                        <p> Total Departments</p>
+                        <p> Total Task</p>
                     </span>
                 </li>
                 <li>
                     <i class="fas fa-people-group"></i>
                     <span class="text">
                         <h3>
-                            <%=totalEmployees%>
+                            66
                         </h3>
-                        <p>Total Employees</p>
+                        <p>Total Registry</p>
                     </span>
                 </li>
 
@@ -785,19 +771,19 @@
                     <i class="fas fa-people-group"></i>
                     <span class="text">
                         <h3>
-                            <%=totalLeave%>
+                            66
                         </h3>
-                        <p>Total Leave Request</p>
+                        <p>Total Request</p>
                     </span>
                 </li>
 
             </div>
 
 
-            <div class="container" id="employee">
-                <h2> Employee Details </h2>
+            <div class="container" id="recent-registration">
+                <h2> Task Details </h2>
 
-                <a href="/admin-dashboard/add-employee" class="btn">Add New Employee</a>
+
 
                 <div class="table-container">
                     <table id="example" class="display responsive nowrap" style="width:100%">
@@ -805,138 +791,65 @@
                             <tr>
 
                                 <th>Sl No</th>
-                                <th>Name </th>
-                                <th>Mobile</th>
-                                <th>Email </th>
-                                <th>Image</th>
-                                <th>Designation</th>
-                                <th>Merital Status</th>
-                                <th>Salary</th>
-                                <th>Department</th>
-                                <th>Role</th>
-                                <th>Manege </th>
-
+                                <th>Title </th>
+                                <th>Deadline</th>
+                                <th>Status </th>
                                 <th>Action</th>
-
-                                <th>Attendance</th>
 
 
                             </tr>
                         </thead>
                         <tbody>
-
-
-                            <% adminSourse.Employee.forEach((employee, index)=>{%>
-
+                            <% employeeSourse.Task.forEach((task, index)=>{%>
                                 <tr>
-
 
                                     <td>
                                         <%=index+1%>
+                                    </td>
+
+                                    <td>
+                                        <%=task.taskTitle%>
 
                                     </td>
 
                                     <td>
-                                        <%=employee.Name%>
-
-                                    </td>
-
-
-                                    <td>
-                                        <%=employee.Mobile%>
-
-                                    </td>
-
-
-
-                                    <td>
-                                        <%=employee.Email%>
-
-                                    </td>
-
-
-
-                                    <td>
-                                        <img src="/uploads/<%=employee.Profile_Image%>" alt="Profile Image" width="50"
-                                            height="50">
-
-                                    </td>
-
-
-
-                                    <td>
-                                        <%=employee.Designation%>
-
-                                    </td>
-
-
-
-                                    <td>
-                                        <%=employee.Merital_Status%>
-
-                                    </td>
-
-
-
-                                    <td>
-                                        <%=employee.Salary%>
-
-                                    </td>
-
-
-
-                                    <td>
-                                        <%=employee.Department%>
+                                        <%=task.deadline%>
 
                                     </td>
 
 
                                     <td>
-                                        <%=employee.Role%>
+                                        <%=task.Status%>
 
                                     </td>
 
                                     <td>
-
-                                        <a href="/admin-dashboard/employee-salary/<%=employee._id%>" class="btn"> Manage
-                                            Salary </a>
-
-                                    </td>
-
-
-                                    <td>
-
-                                        <a href="/delete-employee/<%=employee._id%>" class="colorful-btn"><i
-                                                class="fa-solid fa-trash"></i></a>
-
-                                        <a href="/edit-employee/<%=employee._id%>" class="colorful-btn"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
-
-                                    </td>
+                                        <a class="btn btn-primary" href="/employee-dashboatd/task/view/<%=task._id%>"
+                                            role="button" id="view">View</a>
+                                        <button class="btn btn-primary" onClick="action()" id="actions">take
+                                            Action</button>
 
 
-                                    <td>
+                                        <a class="btn btn-primary" href="/task-progress/<%=task._id%>" role="button"
+                                            style="display:none" id="progress"> In
+                                            Progress </a>
 
-
-                                        <a class="btn btn-primary"
-                                            href="/admin-dashboard/employee-attendace/<%=employee._id%>"
-                                            role="button">Manage Attencence</a>
-
+                                        <a class="btn btn-primary" href="/task-complete/<%=task._id%>" role="button"
+                                            style="display:none" id="complete"> Complete
+                                        </a>
 
                                     </td>
+
 
                                 </tr>
 
 
-
-                                <% })%>
-
+                                <%}) %>
 
                         </tbody>
+
                     </table>
                 </div>
-
-
 
             </div>
 
@@ -949,55 +862,45 @@
             </script>
 
 
-
-
             <div class="container" id="department">
-                <h2> Department Details </h2>
+                <h2> Salary Details </h2>
 
-                <a href="/admin-dashboard/add-department" class="btn">Add New Department</a>
+
 
                 <div class="table-container">
                     <table id="examples" class="display responsive nowrap" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Sl No</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Action</th>
+                                <th>Salary</th>
+                                <th>Date</th>
+
                             </tr>
                         </thead>
                         <tbody>
-                            <% adminSourse.Department.forEach((depart, index)=>{ %>
+
+                            <% employeeSourse.Payment.forEach((pay, index)=>{%>
+
                                 <tr>
+
                                     <td>
                                         <%=index+1%>
+
                                     </td>
 
                                     <td>
-                                        <%=depart.departmentName%>
+                                        <%=pay.salary%>
+
                                     </td>
 
                                     <td>
-                                        <%=depart.description%>
+
+                                        <%=pay.date%>
                                     </td>
-
-                                    <td>
-                                        <a href="/delete-department/<%=depart._id%>" type="button"><i
-                                                class="fa-solid fa-trash"></i></a>
-
-                                        <a href="/edit-department/<%=depart._id%>" type="button"><i
-                                                class="fa-solid fa-pen-to-square"></i></a>
-
-
-                                    </td>
-
-
-
-
 
                                 </tr>
 
-                                <%} ) %>
+                                <%}) %>
                         </tbody>
                     </table>
                 </div>
@@ -1010,103 +913,79 @@
                     });
                 });
             </script>
-
-
-            <div class="container" id="department">
-                <h2> Leave Details </h2>
-
-
-                <div class="table-container" id="leaves">
-                    <table id="leave" class="display responsive nowrap" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Sl No</th>
-                                <th>Department</th>
-                                <th>Name</th>
-                                <th>Leave Date</th>
-                                <th>From Date</th>
-                                <th>To Date</th>
-                                <th>Reason </th>
-                                <th>Status </th>
-                                <th>Action </th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-
-                            <% leave.forEach((Leave, index)=>{ %>
-
-                                <tr>
-
-                                    <td>
-                                        <%=index+1 %>
-                                    </td>
-
-                                    <td>
-                                        <%=Leave.department %>
-                                    </td>
-
-
-                                    <td>
-                                        <%=Leave.employee %>
-                                    </td>
-
-
-                                    <td>
-                                        <%=Leave.date %>
-                                    </td>
-
-                                    <td>
-                                        <%=Leave.fromDate %>
-                                    </td>
-
-                                    <td>
-                                        <%=Leave.toDate %>
-                                    </td>
-
-
-                                    <td>
-                                        <%=Leave.reason %>
-                                    </td>
-
-                                    <td>
-                                        <%=Leave.Status %>
-                                    </td>
-
-                                    <td>
-                                        <% if(Leave.Status==='Pending' ){%>
-
-
-                                            <a class="btn btn-primary" href="/accept-leave/<%=Leave._id%>"
-                                                role="button">Accept</a>
-
-                                            <a class="btn btn-primary" href="/reject-leave/<%=Leave._id%>"
-                                                role="button">Reject</a>
-
-
-                                            <% }%>
-
-                                    </td>
-
-
-                                </tr>
-
-                                <%}) %>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-            <script>
-                $(document).ready(function () {
-                    $('#leave').DataTable({
-                        responsive: true
-                    });
-                });
-            </script>
+</body>
 
 
 
+
+<div class="container" id="department">
+    <h2> Leave Details </h2>
+
+
+
+    <div class="table-container">
+        <table id="leave" class="display responsive nowrap" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Sl No</th>
+
+                    <th>Date</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Reason </th>
+                    <th>Status </th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <% employeeSourse.Leave.forEach((lev, index)=>{%>
+
+                    <tr>
+
+                        <td>
+                            <%=index+1%>
+                        </td>
+
+                        <td>
+                            <%=lev.date%>
+                        </td>
+
+                        <td>
+
+                            <%=lev.fromDate%>
+                        </td>
+
+                        <td>
+
+                            <%=lev.toDate%>
+                        </td>
+
+                        <td>
+
+                            <%=lev.reason%>
+                        </td>
+
+                        <td>
+
+                            <%=lev.Status%>
+                        </td>
+
+                    </tr>
+
+                    <%}) %>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function () {
+        $('#leave').DataTable({
+            responsive: true
+        });
+    });
+</script>
 </body>
 
 
@@ -1185,11 +1064,21 @@
         document.getElementById('msg').style.display = 'none'
     }, 3000)
 
+    const progresss = document.getElementById('progress');
+    const complete = document.getElementById('complete');
+    const view = document.getElementById('view');
+    const actions = document.getElementById('actions');
+
+    const action = () => {
+
+        progresss.style.display = 'block'
+        complete.style.display = 'block'
+        view.style.display = 'none'
+        actions.style.display = 'none'
+    }
+
 
 
 </script>
-
-
-
 
 </html>
