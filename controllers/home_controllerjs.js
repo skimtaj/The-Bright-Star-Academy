@@ -16,7 +16,7 @@ app.use(cookieParser());
 
 const home = (req, res) => {
 
-    res.render('home_page')
+    res.render('../Views/home_page')
 };
 
 const adminLogin = (req, res) => {
