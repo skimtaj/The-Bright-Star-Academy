@@ -311,7 +311,7 @@ const addClass = async (req, res) => {
     const sectionSourse = await section_model.find();
     const feesType = await fees_type_model.find();
 
-    res.render('add_class', { teacherSourse, sectionSourse, feesType })
+    res.render('../Views/add_class', { teacherSourse, sectionSourse, feesType })
 }
 
 const addClassPost = async (req, res) => {
@@ -337,7 +337,7 @@ const addSubject = async (req, res) => {
 
     const teacherSourse = await teacher_model.find();
 
-    res.render('add_subject', { teacherSourse })
+    res.render('../Views/add_subject', { teacherSourse })
 
 }
 
@@ -363,7 +363,7 @@ const editSubject = async (req, res) => {
     const subjectSourse = await subject_model.findById(req.params.id);
     const teacherSourse = await teacher_model.find();
 
-    res.render('edit_subject', { subjectSourse, teacherSourse })
+    res.render('../Views/edit_subject', { subjectSourse, teacherSourse })
 }
 
 const editSubjectPost = async (req, res) => {
@@ -389,7 +389,7 @@ const editClass = async (req, res) => {
     const teacherSourse = await teacher_model.find();
     const sectionSourse = await section_model.find();
 
-    res.render('edit_class', { classSourse, teacherSourse, sectionSourse })
+    res.render('../Views/edit_class', { classSourse, teacherSourse, sectionSourse })
 
 }
 
@@ -404,7 +404,7 @@ const editClassPost = async (req, res) => {
 
 const teacherAttendance = (req, res) => {
 
-    res.render('teacher_attendance')
+    res.render('../Views/teacher_attendance')
 
 }
 
@@ -464,7 +464,7 @@ const teacherAttendancePost = async (req, res) => {
 
 const addAcademicYear = (req, res) => {
 
-    res.render('academic_year')
+    res.render('../Views/academic_year')
 
 }
 
@@ -487,7 +487,7 @@ const addAcademicYearPost = async (req, res) => {
 
 const addfeesType = (req, res) => {
 
-    res.render('add_fees_type')
+    res.render('../Views/add_fees_type')
 
 }
 
@@ -511,7 +511,7 @@ const editFeesType = async (req, res) => {
 
     const feesSourse = await fees_type_model.findById(req.params.id)
 
-    res.render('edit_fees_type', { feesSourse })
+    res.render('../Views/edit_fees_type', { feesSourse })
 
 }
 
@@ -529,7 +529,7 @@ const addStudent = async (req, res) => {
     const allClass = await class_model.find();
     const allAcademicYear = await academic_year_model.find();
 
-    res.render('add_student', { allClass, allAcademicYear })
+    res.render('../Views/add_student', { allClass, allAcademicYear })
 
 }
 
@@ -609,7 +609,7 @@ const editStudent = async (req, res) => {
     const student_sourse = await student_model.findById(req.params.id).populate('Fees_Records')
     const allAcademicYear = await academic_year_model.find();
 
-    res.render('edit_student', { allClass, student_sourse, allAcademicYear })
+    res.render('../Views/edit_student', { allClass, student_sourse, allAcademicYear })
 
 }
 
@@ -656,7 +656,7 @@ const studentProfile = async (req, res) => {
 
     const studentProfile = await student_model.findById(req.params.id)
 
-    res.render('student_profile', { studentProfile })
+    res.render('../Views/student_profile', { studentProfile })
 
 }
 
@@ -675,7 +675,7 @@ const feesCollection = async (req, res) => {
     const stdentSourse = await student_model.findById(req.params.id).populate('Fees_Records');
     const academicYears = await academic_year_model.find();
 
-    res.render('fees_record', { stdentSourse, academicYears })
+    res.render('../Views/fees_record', { stdentSourse, academicYears })
 
 }
 
@@ -683,7 +683,7 @@ const feesCollect = async (req, res) => {
 
     const studentSourse = await student_model.findById(req.params.id);
     const academicYears = await academic_year_model.find();
-    res.render('fees_collect', { studentSourse, academicYears })
+    res.render('../Views/fees_collect', { studentSourse, academicYears })
 
 }
 
@@ -734,7 +734,7 @@ const editFees = async (req, res) => {
 
     const feesSourse = await fees_model.findById(req.params.id);
     const academicYears = await academic_year_model.find();
-    res.render('edit_fees', { feesSourse, academicYears })
+    res.render('../Views/edit_fees', { feesSourse, academicYears })
 
 }
 
@@ -899,7 +899,7 @@ const cashPaymentReceipt = async (req, res) => {
 
 const forgetPassword = (req, res) => {
 
-    res.render('forget_Password')
+    res.render('../Views/forget_Password')
 }
 
 const forgetPasswordPost = async (req, res) => {
@@ -950,7 +950,7 @@ const forgetPasswordPost = async (req, res) => {
 
 const resetPassword = (req, res) => {
 
-    res.render('reset_password')
+    res.render('../Views/reset_password')
 }
 
 const resetPasswordPost = async (req, res) => {
@@ -970,36 +970,11 @@ const resetPasswordPost = async (req, res) => {
 }
 
 
-
 const logout = (req, res) => {
 
     res.clearCookie('adminToken');
     req.flash('error', 'You are successfully Logout')
     return res.redirect('/TBSA/admin-login')
-
-}
-
-
-const testing = (req, res) => {
-
-    res.render('testing-page')
-
-}
-
-
-const studentDueAmount = async (req, res) => {
-
-
-    const student = student_model.findById(req.params.id);
-
-    const jointDate = student.admissionDate;
-    const currentDate = new Date();
-
-    const totalMonth = (currentDate.getFullYear() - jointDate.getFullYear() * 12) + (currentDate.getMonth() - jointDate.getMonth() + 1)
-    const paidMonth = student.Fees_Records.length();
-
-    const dueMonth = totalMonth - paidMonth;
-    const dueAmount = dueMonth * 500;
 
 }
 
