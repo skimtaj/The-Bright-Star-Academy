@@ -35,7 +35,7 @@ const adminDashboard = async (req, res) => {
     const totalTeachers = adminSourse.Teacher.length;
     const Students = await student_model.find();
 
-    res.render('admin_dashboard', { generalEnquiry, adminSourse, Students, totalStudent, totalTeachers })
+    res.render('../Views/admin_dashboard', { generalEnquiry, adminSourse, Students, totalStudent, totalTeachers })
 
 }
 
@@ -43,7 +43,7 @@ const replyGeneralQuiry = async (req, res) => {
 
     const enquirySourse = await general_enquiry_model.findById(req.params.id)
 
-    res.render('G_enquire_reply', { enquirySourse })
+    res.render('../Views/G_enquire_reply', { enquirySourse })
 
 }
 
@@ -94,7 +94,7 @@ const deleteGeneralEnquiry = async (req, res) => {
 
 const addTeacher = (req, res) => {
 
-    res.render('add_teacher')
+    res.render('../Views/add_teacher')
 
 }
 
@@ -154,7 +154,7 @@ const editTecaher = async (req, res) => {
 
     const teacherSourse = await teacher_model.findById(req.params.id)
 
-    res.render('edit_teacher', { teacherSourse })
+    res.render('../Views/edit_teacher', { teacherSourse })
 
 }
 
@@ -185,7 +185,7 @@ const teacherProfile = async (req, res) => {
     const teacherSourse = await teacher_model.findById(req.params.id).populate('Attendance');
     const academicYear = await academic_year_model.find();
 
-    res.render('teacher_profile', { teacherSourse, academicYear })
+    res.render('../Views/teacher_profile', { teacherSourse, academicYear })
 }
 
 const downloadTeacherExcel = async (req, res) => {
@@ -278,7 +278,7 @@ const downloadTeacherIdcard = async (req, res) => {
 
 const addSection = (req, res) => {
 
-    res.render('add_section')
+    res.render('../Views/add_section')
 
 }
 
