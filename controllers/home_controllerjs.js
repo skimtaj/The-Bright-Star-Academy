@@ -21,7 +21,7 @@ const home = (req, res) => {
 
 const adminLogin = (req, res) => {
 
-    res.render('admin_login')
+    res.render('../Views/admin_login')
 
 }
 
@@ -65,7 +65,7 @@ const adminLoginPost = async (req, res) => {
 
 const adminSignup = (req, res) => {
 
-    res.render('admin_signup')
+    res.render('../Views/admin_signup')
 
 }
 
