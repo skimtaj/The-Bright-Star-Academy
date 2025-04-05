@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 
-const mongourl = 'mongodb+srv://imtajdatabase:Skimtaj786@employeemanagement.r3kne.mongodb.net/?retryWrites=true&w=majority&appName=employeeManagement'
+const mongourl = 'mongodb+srv://imtajdatabase:Skimtaj786@tbsa.p382p.mongodb.net/'
 
-//const mongourl = 'mongodb://localhost:27017/employee_management';
+//const mongourl = 'mongodb://localhost:27017/afm-project';
 
 mongoose.connect(mongourl);
 

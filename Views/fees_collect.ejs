@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fees Collection Form</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .form-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
+            background-color: #4a6bff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border 0.3s;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #4a6bff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.1);
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .submit-btn {
+            background-color: #4a6bff;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #3a5bef;
+        }
+
+        .back-btn {
+            background-color: #f5f7fa;
+            color: #4a6bff;
+            border: 1px solid #4a6bff;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            flex: 1;
+            transition: all 0.3s;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .back-btn:hover {
+            background-color: #e6e9f5;
+        }
+
+        .due-amount {
+            background-color: #fff8e1;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-weight: 600;
+            color: #e65100;
+        }
+
+        .student-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+
+        .student-info-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .student-info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .student-info-label {
+            font-weight: 600;
+            color: #495057;
+            min-width: 100px;
+        }
+
+        .student-info-value {
+            color: #212529;
+        }
+
+        .fees-section {
+            margin: 25px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .fees-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .payment-method {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 6px;
+            border: 1px solid #eee;
+        }
+
+        .qr-code {
+            max-width: 200px;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .text-muted {
+            color: #6c757d;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+
+        .bank-details h6 {
+            margin: 8px 0;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .disabled-input {
+            background-color: #f5f5f5;
+            color: #666;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="form-container">
+        <div class="header">
+            <div class="logo">RS</div>
+            <h1>Fees Collection</h1>
+            <p class="subtitle">Please fill in the payment details below</p>
+        </div>
+
+        <script>
+        <% if (messages.success) { %>
+            Swal.fire({
+                text: "<%= messages.success %>",
+                icon: "success",
+                draggable: true
+            });
+        <% } %>
+        
+        <% if (messages.error) { %>
+            Swal.fire({
+                text: "<%= messages.error %>",
+                icon: "error",
+                draggable: true
+            });
+        <% } %>
+        </script>
+
+        <form method="post" enctype="multipart/form-data">
+            <div class="student-info">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="studentName">Student Name</label>
+                        <input type="text" id="studentName" name="studentName" value="<%= studentSourse.Name %>"
+                            class="disabled-input" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="className">Class</label>
+                        <input type="text" id="className" name="className" value="<%= studentSourse.admissionFor %>"
+                            class="disabled-input" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="rollNo">Roll No</label>
+                        <input type="text" id="rollNo" name="rollNo" value="<%= studentSourse.rollNo %>"
+                            class="disabled-input" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="paymentMonth">Payment Month</label>
+                    <select id="paymentMonth" name="paymentMonth" required>
+                        <option value="">Select Month</option>
+                        <option value="January">January</option>
+                        <option value="February">February</option>
+                        <option value="March">March</option>
+                        <option value="April">April</option>
+                        <option value="May">May</option>
+                        <option value="June">June</option>
+                        <option value="July">July</option>
+                        <option value="August">August</option>
+                        <option value="September">September</option>
+                        <option value="October">October</option>
+                        <option value="November">November</option>
+                        <option value="December">December</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="paymentYear">Payment Year</label>
+                    <select id="paymentYear" name="paymentYear" required>
+                        <option value="">Select Year</option>
+                        <% academicYears.forEach((year) => { %>
+                            <option value="<%= year.academicYear %>">
+                                <%= year.academicYear %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="feesAmount">Monthly Fees Amount (Rs)</label>
+                    <input type="number" id="feesAmount" name="feesAmount" placeholder="Enter total fees amount"
+                        required value="<%= studentSourse.totalMonthlyFees %>" class="disabled-input" readonly
+                        oninput="calculateDue()">
+                </div>
+                <div class="form-group">
+                    <label for="paidAmount">Paid Amount (Rs)</label>
+                    <input type="number" id="paidAmount" name="paidAmount" placeholder="Enter paid amount" required
+                        oninput="calculateDue()">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="paymentDate">Payment Date</label>
+                <input type="date" id="paymentDate" name="paymentDate" required>
+            </div>
+
+            <div class="fees-section">
+                <div class="fees-title">Payment Information</div>
+
+                <div class="form-group">
+                    <label for="totalAmount">Total Amount to Pay (₹)</label>
+                    <input type="text" id="totalAmount" class="disabled-input" readonly name="totalAmount"
+                        value="<%= studentSourse.totalMonthlyFees %>">
+                </div>
+
+                <div class="form-group">
+                    <label for="selectedMethod">Payment Method</label>
+                    <select required id="selectedMethod" name="paymentMethod">
+                        <option value="">Select Method</option>
+                        <option value="Qr Code">QR Code</option>
+                        <option value="Bank Transfer">Bank Transfer</option>
+                        <option value="Cash">Cash</option>
+                    </select>
+                </div>
+
+                <div id="bankTransferDetails" class="payment-method" style="display: none">
+                    <div class="bank-details">
+                        <h6>Name: The Brighat Star Academy</h6>
+                        <h6>Account: 88987676456</h6>
+                        <h6>IFSC: SBIN00998787</h6>
+                    </div>
+                    <p class="text-muted">After payment, please upload the screenshot of payment confirmation</p>
+                    <input type="file" accept="image/*" name="bankPaymentProof">
+                </div>
+
+                <div id="qrCodeDetails" class="payment-method" style="display: none;">
+                    <p>Scan the QR code below to make payment</p>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://example.com/pay?amount=<%= studentSourse.totalMonthlyFees %>"
+                        alt="Payment QR Code" class="qr-code">
+                    <p class="text-muted">After payment, please upload the screenshot of payment confirmation</p>
+                    <input type="file" name="QRcodePaymentProof" accept="image/*">
+                </div>
+
+                <div id="cashPaymentDetails" class="payment-method" style="display: none;">
+                    <p class="text-muted">Please collect cash payment and provide receipt to the student</p>
+                    <div class="form-group">
+                        <label for="receiptNumber">Receipt Number</label>
+                        <input type="text" id="receiptNumber" name="receiptNumber" placeholder="Enter receipt number">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="note">Note (Optional)</label>
+                <textarea id="note" name="note" placeholder="Enter any additional notes about this payment"></textarea>
+            </div>
+
+            <div class="button-group">
+                <a href="/TBSA/admin-dashboard" class="back-btn">Go Back</a>
+                <button type="submit" class="submit-btn">Submit Payment</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            document.getElementById('paymentDate').value = today.toISOString().split('T')[0];
+            
+            calculateDue();
+            
+            document.getElementById('selectedMethod').addEventListener('change', handlePaymentMethodChange);
+        });
+
+        function handlePaymentMethodChange() {
+            const method = document.getElementById('selectedMethod').value;
+            const qrCodeDetails = document.getElementById('qrCodeDetails');
+            const bankTransferDetails = document.getElementById('bankTransferDetails');
+            const cashPaymentDetails = document.getElementById('cashPaymentDetails');
+
+            qrCodeDetails.style.display = 'none';
+            bankTransferDetails.style.display = 'none';
+            cashPaymentDetails.style.display = 'none';
+
+            if (method === 'Qr Code') {
+                qrCodeDetails.style.display = 'block';
+            } else if (method === 'Bank Transfer') {
+                bankTransferDetails.style.display = 'block';
+            } else if (method === 'Cash') {
+                cashPaymentDetails.style.display = 'block';
+            }
+        }
+
+        function calculateDue() {
+            const feesAmount = parseFloat(document.getElementById('feesAmount').value) || 0;
+            const paidAmount = parseFloat(document.getElementById('paidAmount').value) || 0;
+            const totalAmount = feesAmount - paidAmount;
+            
+            
+        }
+    </script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const bcryptjs = require('bcryptjs');
-const JWT = require('jsonwebtoken')
+const JWT = require('jsonwebtoken');
 
 
 const adminSchema = mongoose.Schema({
@@ -11,12 +11,13 @@ const adminSchema = mongoose.Schema({
         type: String
     },
 
-    Mobile: {
+    Mpbile: {
 
         type: String
     },
 
     Email: {
+
         type: String
     },
 
@@ -38,53 +39,69 @@ const adminSchema = mongoose.Schema({
         }
     }],
 
-    Employee: [{
+    Teacher: [{
 
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Employee_Model'
+        ref: 'teacher_model'
     }],
 
-    Department: [{
+
+    Section: [{
 
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'department_model'
+        ref: 'section_model'
     }],
 
-    Leave: [{
+    Course: [{
 
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'leave_model'
+        ref: "class_model"
     }],
 
-    Task: [{
+    Subjects: [{
 
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'task_model'
+        ref: 'subject_model'
+    }],
+
+    Academic_Year: [{
+
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'academic_year_model'
+    }],
+
+    Fees_Type: [{
+
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'fees_type_model'
+    }],
+
+    Students: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'student_model'
     }]
 
+})
 
-});
-
-
-adminSchema.methods.GenerateJWT = async function () {
+adminSchema.methods.generateAdminToken = async function () {
 
     try {
 
-
-        const token = JWT.sign({ _id: this._id.toString() }, process.env.Token_Password, { expiresIn: '365d' });
+        const token = JWT.sign({ _id: this._id.toString() }, process.env.Admin_Token_Password, { expiresIn: '365d' });
         this.Token = this.Token.concat({ token: token });
-        await this.save();
+        this.save();
         return token;
 
     }
 
-    catch (error) {
+    catch (err) {
 
-        console.log('This is Admin JWT Generate error', error)
+        console.log('This is Admin Token generating error', err)
 
     }
 
 }
+
 
 adminSchema.pre('save', async function (next) {
     if (this.isModified('Password')) {
